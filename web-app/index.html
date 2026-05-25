@@ -2,32 +2,23 @@
 <!-- They can all be removed for your apps -->
 <!doctype html> <!-- This first line tells browsers to expect modern standard html 5 -->
 <html lang="en-gb"> <!-- This is indicates the page is written in British English, useful for accessibility -->
-<meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
-<meta name="viewport" content="width=device-width" /> <!--page width matches screen width -->
-<title>Your Web-app Title</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
-<link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
-<link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
-<script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
 
-
-<head>
+<head> 
+    <meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
+    <meta name="viewport" content="width=device-width" /> <!--page width matches screen width -->
     <title>Checkers 😸</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
-    <link rel="stylesheet" href="default.css"> <!-- Import style sheet links to the page default.css -->
-    <link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png. this is like the logo on the tab when you go to google -->
+    <link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
+    <link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
     <script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
-</head> 
+</head>
 
 <body>
-    Hello World
-    <strong id="hello_message">Some more text </strong>
+    <main id="game">
+        <h1>Checkers</h1> <!--Heading 1 -->
+        <p id = "status"> Starting Board</p> <!-- paragraph-->
+        <div id="board" class="board"></div>
+    </main>
 </body>
 
-<aside>
-    Aside
-</aside>
-
-<header>
-     Hello
-</header>
 
 
