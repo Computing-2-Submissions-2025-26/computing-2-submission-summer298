@@ -2,23 +2,63 @@
 <!-- They can all be removed for your apps -->
 <!doctype html> <!-- This first line tells browsers to expect modern standard html 5 -->
 <html lang="en-gb"> <!-- This is indicates the page is written in British English, useful for accessibility -->
+<meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
+<link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
+<link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
+<script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
+<title>Checkers 😸</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
+<meta name="viewport" content="width=device-width" /> <!--page width matches screen width -->
 
-<head> 
-    <meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
-    <meta name="viewport" content="width=device-width" /> <!--page width matches screen width -->
-    <title>Checkers 😸</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
-    <link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
-    <link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
-    <script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
-</head>
+<header>
+    <h1>Checkers</h1> <!--Heading 1 -->
+</header>
 
 <body>
     <main id="game">
-        <h1>Checkers</h1> <!--Heading 1 -->
-        <p id = "status"> Starting Board</p> <!-- paragraph-->
+        <p id = "status"> Starting Board</p> <!-- paragraph REDUNDANT RIGHT NOW-->
         <div id="board" class="board"></div>
     </main>
 </body>
 
-
+<aside id="home_player" class="sidebar" aria-label="Home Player Info">
+    <div class="player">
+        <input id="home_name" aria-label="Home player name" value="Player 1">
+        <div><strong>Elo</strong> <span id="home_elo">100</span></div>
+    </div>
+    <div class="game_info">
+        <div id="home_player_type">Zombies</div>
+        <img id="home_player_type_image" src="./assets/zombie.png" alt="Zombie">
+        <div id="home_ready">You're up!</div>
+    </div>
+    <div class="stats">
+        <table>
+            <tr>
+                <th role="none"></th>
+                <th scope="col">Win</th>
+                <th scope="col">Loss</th>
+                <th scope="col">Draw</th>
+            </tr>
+            <tr>
+                <th scope="row">Zombies</th>
+                <td id="home_p2_wins">1</td>
+                <td id="home_p2_losses">3</td>
+                <td id="home_p2_draws">4</td>
+            </tr>
+            <tr>
+                <th scope="row">Defender</th>
+                <td id="home_p1_wins">6</td>
+                <td id="home_p1_losses">1</td>
+                <td id="home_p1_draws">3</td>
+            </tr>
+        </table>
+        <div>
+            <strong>Longest Streak</strong>
+            <span id="home_longest_streak">4</span>
+        </div>
+        <div>
+            <strong>Current Streak</strong>
+            <span id="home_current_streak">1</span>
+        </div>
+    </div>
+</aside>
 
