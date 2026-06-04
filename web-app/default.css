@@ -7,41 +7,43 @@ body {
 
 }
 
-#game {
-    background: white;
-    max-width: 700px;
+h1{
+    margin-top:0;
+    margin-bottom:2rem;
+}
+
+.game {
+    background:#AC8053;
+    width: fit-content;
+    text-align: center;
     margin: 0 auto;
     padding: 2rem;
     border-radius: 1rem;
 }
 
-#game_board {
-    aspect-ratio: 1 / 1;
-    width: min(80vw, 600px);
-    margin: 2rem auto;
-    border: 4px solid black;
+td {
+    background-color: green;
+    width: 65px;
+    height: 65px;
+    text-align: center;
+    border: 2px solid black;
 
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
 }
 
-.square {
-    width: 100%;
-    height: 100%;
+.emptypiece{
+    background-color: aliceblue;
 }
 
-.square.light {
-    background: #f0d9b5;
+
+.centre {
+     margin: 0 auto;
+     justify-content: center;
+     align-items: center;
 }
 
-.square.dark {
-    background: #7e4f46;
+table {
+    text-align: center;
+    border-collapse: collapse;
+    margin: 0 auto;
 }
 
-.square.piece {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-}
