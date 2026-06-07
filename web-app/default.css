@@ -47,3 +47,34 @@ table {
     margin: 0 auto;
 }
 
+.catpiece{
+    background-color: green;
+    background-image: url("assets/cat.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.dogpiece{
+    background-color: green;
+    background-image: url("assets/dog.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.king.catpiece {
+    background-color: green;
+    background-image: url("assets/lion.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.king.dogpiece {
+    background-color: green;
+    background-image: url("assets/wolf.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}

@@ -71,6 +71,7 @@ function build_board() {
   game.innerHTML = "";
   let black = 0;
   let white = 0;
+  
   for (let i = 0; i < board.length; i++) {
     const element = board[i];
     let row = document.createElement("div"); // create div for each row
