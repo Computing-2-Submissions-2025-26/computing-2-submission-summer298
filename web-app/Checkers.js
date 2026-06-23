@@ -43,23 +43,25 @@ const Checkers = Object.create(null); /**making empty module called checkers */
  */
 
 Checkers.board = [
-    null, "0", null, "1", null, "2", null, "3",
-    "4", null, "5", null, "6", null, "7", null,
-    null, "8", null, "9", null, "10", null, "11",
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    "12", null, "13", null, "14", null, "15", null,
-    null, "16", null, "17", null, "18", null, "19",
-    "20", null, "21", null, "22", null, "23", null
+  null, "0", null, "1", null, "2", null, "3",
+  "4", null, "5", null, "6", null, "7", null,
+  null, "8", null, "9", null, "10", null, "11",
+  null, null, null, null, null, null, null, null,
+  null, null, null, null, null, null, null, null,
+  "12", null, "13", null, "14", null, "15", null,
+  null, "16", null, "17", null, "18", null, "19",
+  "20", null, "21", null, "22", null, "23", null
 ];
 
 /**
  * Creates an empty board.
  * 
  * @memberof Checkers
+ * @returns {Checker.Board} - empty board with 64 null values
  */
 
 Checkers.empty_board = function () {
+  return R.repeat(null, 64);
 
 };
 
@@ -71,18 +73,37 @@ Checkers.empty_board = function () {
  * @returns {"cat" | "dog" | null} Player who owns the piece or null if empty
  */
 Checkers.get_piece_player = function (piece) {
-
+  if (piece === null) {
+    return null;
+  }
+  const piece_number = Number(piece);
+  if (piece_number >= 0 && piece_number <=11) {
+    return "cat";
+  }
+  if (piece_number >= 12 && piece_number <= 23) {
+    return "dog";
+  }
+  return null;
 };
 
 /**
- * Finfs the board index of a piece
+ * The player whose turn it currently is.
+ *
+ * @memberof Checkers
+ * @type {"cat" | "dog"}
+ */
+Checkers.current_player = "cat";
+
+
+/**
+ * Finds the board index of a piece
  * 
  * @memberof Checkers
  * @param {Checkers.Piece} piece - the piece id to search for
  * @returns {number} The board index of the piece, or -1 if it is not found
  */
 Checkers.get_piece_position = function (piece) {
-
+  return Checkers.board.indexOf(piece);
 };
 
 /**
@@ -93,10 +114,14 @@ Checkers.get_piece_position = function (piece) {
  * @returns {boolean} True if the position is empty, otherwise false.
  */
 Checkers.is_empty_position = function(index) {
-
+  return Checkers.board[index] === null;
 };
+
 /**
  * Checks whether a move is valid.
+ * Checks one square diagonally forwards movement
+ * handles captures
+ * not kings yet
  *
  * @memberof Checkers
  * @param {number} from_index - current position
@@ -104,7 +129,50 @@ Checkers.is_empty_position = function(index) {
  * @returns {boolean} True if the move is allowed, otherwise false.
  */
 Checkers.is_valid_move = function (from_index, to_index) {
+  if (from_index < 0 || from_index > 63 || to_index < 0 || to_index > 63) {
+    return false;
+  }
 
+  const piece = Checkers.board[from_index];
+
+  if (piece === null) {
+      return false;
+  }
+
+  if (!Checkers.is_empty_position(to_index)) {
+      return false;
+  }
+
+  const player = Checkers.get_piece_player(piece);
+
+  if (player !== Checkers.current_player) {
+    return false;
+  }
+
+  const from_row = Math.floor(from_index / 8);
+  const from_col = from_index % 8;
+
+  const to_row = Math.floor(to_index / 8);
+  const to_col = to_index % 8;
+
+  const row_difference = to_row - from_row;
+  const col_difference = Math.abs(to_col - from_col);
+
+  if (col_difference === 1) {
+      if (player === "cat" && row_difference === 1) {
+          return true;
+      }
+
+      if (player === "dog" && row_difference === -1) {
+          return true;
+      }
+  }
+
+  if (Checkers.is_capture_move(from_index, to_index)) {
+      return true;
+  }
+
+  return false;
 };
 
 /**
@@ -113,10 +181,36 @@ Checkers.is_valid_move = function (from_index, to_index) {
  * @memberof Checkers
  * @param {number} from_index - current position
  * @param {number} to_index - new position
+ * @returns {boolean} 
  */
 
-Checkers.move_piece = function(from_index, to_index) {
+Checkers.move_piece = function (from_index, to_index) {
+  if (!Checkers.is_valid_move(from_index, to_index)) {
+      return false;
+  }
 
+  const was_capture = Checkers.is_capture_move(from_index, to_index);
+
+  const piece = Checkers.board[from_index];
+
+  Checkers.board[to_index] = piece;
+  Checkers.board[from_index] = null;
+
+  if (was_capture) {
+      const from_row = Math.floor(from_index / 8);
+      const from_col = from_index % 8;
+
+      const to_row = Math.floor(to_index / 8);
+      const to_col = to_index % 8;
+
+      const captured_row = (from_row + to_row) / 2;
+      const captured_col = (from_col + to_col) / 2;
+      const captured_index = captured_row * 8 + captured_col;
+
+      Checkers.capture_piece(captured_index);
+  }
+
+  return true;
 };
 
 /**
@@ -128,11 +222,56 @@ Checkers.move_piece = function(from_index, to_index) {
  * @returns {boolean} True if the move captures another piece, otherwise false.
  */
 Checkers.is_capture_move = function (from_index, to_index) {
+  const piece = Checkers.board[from_index];
 
+  if (piece === null) {
+      return false;
+  }
+
+  if (!Checkers.is_empty_position(to_index)) {
+      return false;
+  }
+
+  const player = Checkers.get_piece_player(piece);
+
+  const from_row = Math.floor(from_index / 8);
+  const from_col = from_index % 8;
+
+  const to_row = Math.floor(to_index / 8);
+  const to_col = to_index % 8;
+
+  const row_difference = to_row - from_row;
+  const col_difference = Math.abs(to_col - from_col);
+
+  if (col_difference !== 2) {
+      return false;
+  }
+
+  if (player === "cat" && row_difference !== 2) {
+      return false;
+  }
+
+  if (player === "dog" && row_difference !== -2) {
+      return false;
+  }
+
+  const middle_row = (from_row + to_row) / 2;
+  const middle_col = (from_col + to_col) / 2;
+  const middle_index = middle_row * 8 + middle_col;
+
+  const captured_piece = Checkers.board[middle_index];
+
+  if (captured_piece === null) {
+      return false;
+  }
+
+  const captured_player = Checkers.get_piece_player(captured_piece);
+
+  return player !== captured_player;
 };
 
 /**
- * Gets the piece captured during a capture move.
+ * Gets the piece captured during a capture move - the piece in the middle of jump
  *
  * @memberof Checkers
  * @param {number} from_index - starting position
@@ -140,7 +279,22 @@ Checkers.is_capture_move = function (from_index, to_index) {
  * @returns {Checkers.Piece_or_empty}  captured piece id, or null if no piece is captured.
  */
 Checkers.get_captured_piece = function (from_index, to_index) {
+  if (!Checkers.is_capture_move(from_index, to_index)) {
+      return null;
+  }
 
+  const from_row = Math.floor(from_index / 8);
+  const from_col = from_index % 8;
+
+  const to_row = Math.floor(to_index / 8);
+  const to_col = to_index % 8;
+
+  const captured_row = (from_row + to_row) / 2;
+  const captured_col = (from_col + to_col) / 2;
+
+  const captured_index = captured_row * 8 + captured_col;
+
+  return Checkers.board[captured_index];
 };
 
 /**
@@ -150,7 +304,7 @@ Checkers.get_captured_piece = function (from_index, to_index) {
  * @param {number} captured_index -  board position of the captured piece.
  */
 Checkers.capture_piece = function (captured_index) {
-
+    Checkers.board[captured_index] = null;
 };
 
 /**
@@ -171,7 +325,13 @@ Checkers.should_be_king = function (piece, index) {
  * @memberof Checkers
  */
 Checkers.switch_turn = function () {
+  if (Checkers.current_player === "cat") {
+      Checkers.current_player = "dog";
+  } else {
+      Checkers.current_player = "cat";
+  }
 
+  return Checkers.current_player;
 };
 
 /**
@@ -182,7 +342,18 @@ Checkers.switch_turn = function () {
  * @returns {boolean} True if the game has been won, otherwise false
  */
 Checkers.is_victory = function () {
+  const cats_left = Checkers.board.some(function (piece) {
+      return Checkers.get_piece_player(piece) === "cat";
+  });
 
+  const dogs_left = Checkers.board.some(function (piece) {
+      return Checkers.get_piece_player(piece) === "dog";
+  });
+
+  return !cats_left || !dogs_left;
 };
 
-export default Object.freeze(Checkers);
+//export default Object.freeze(Checkers); uncomment this later
+
+export default Checkers;
+

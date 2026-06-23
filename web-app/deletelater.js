@@ -2,11 +2,12 @@ const Checkers = Object.create(null);
 
 /**
  * A Board is an 8 by 8 grid of squares.
- * It is implemented as an array of rows.
- * Each square contains a piece or an empty position.
+ * It is implemented as a single array of 64 positions.
+ * Each square contains a piece id or null.
  * @memberof Checkers
- * @typedef {Checkers.Piece_or_empty[][]} Board
+ * @typedef {(string|null)}.Piece_or_empty
  */
+
 const board = [
     null, "cat1", null, "cat2", null, "cat3", null, "cat4",
     "cat5", null, "cat6", null, "cat7", null, "cat8", null,
