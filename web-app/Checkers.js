@@ -1,19 +1,187 @@
 import R from "./ramda.js";
 
 /**
+ * Checkers.js is a module to model and play Checkers
  * @namespace Checkers
  * @author Hanan
  */
 
-const Checkers = {}; /**making empty module called checkers */
+const Checkers = Object.create(null); /**making empty module called checkers */
 
 /** make a list of all the functions you'll need without defining them first */
 
-move_piece = function() {
+/**
+ * A piece is represented by its HTML id.
+ * For example: "0", "1", "12", "23".
+ *
+ * @memberof Checkers
+ * @typedef {string} Piece
+ */
+
+/**
+ * A board square contains either a piece id or null.
+ *
+ * null = empty square
+ * string = piece id
+ *
+ * @memberof Checkers
+ * @typedef {(Piece | null)} Piece_or_empty
+ */
+
+/**
+ * A Board is a single array of 64 positions.
+ *
+ * @memberof Checkers
+ * @typedef {Piece_or_empty[]} Board
+ */
+
+/**
+ * The current state of the checkers board.
+ *
+ * @memberof Checkers
+ * @type {Checkers.Board}
+ */
+
+Checkers.board = [
+    null, "0", null, "1", null, "2", null, "3",
+    "4", null, "5", null, "6", null, "7", null,
+    null, "8", null, "9", null, "10", null, "11",
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    "12", null, "13", null, "14", null, "15", null,
+    null, "16", null, "17", null, "18", null, "19",
+    "20", null, "21", null, "22", null, "23", null
+];
+
+/**
+ * Creates an empty board.
+ * 
+ * @memberof Checkers
+ */
+
+Checkers.empty_board = function () {
 
 };
 
-is_victory = function () {
+/**
+ * Determines which player a piece belongs to
+ * 
+ * @memberof Checkers
+ * @param {Checkers.Piece_or_empty} piece - the piece id or null
+ * @returns {"cat" | "dog" | null} Player who owns the piece or null if empty
+ */
+Checkers.get_piece_player = function (piece) {
+
+};
+
+/**
+ * Finfs the board index of a piece
+ * 
+ * @memberof Checkers
+ * @param {Checkers.Piece} piece - the piece id to search for
+ * @returns {number} The board index of the piece, or -1 if it is not found
+ */
+Checkers.get_piece_position = function (piece) {
+
+};
+
+/**
+ * Checks whether a board position is empty.
+ * 
+ * @memberof Checkers
+ * @param {number} index - the board position to check.
+ * @returns {boolean} True if the position is empty, otherwise false.
+ */
+Checkers.is_empty_position = function(index) {
+
+};
+/**
+ * Checks whether a move is valid.
+ *
+ * @memberof Checkers
+ * @param {number} from_index - current position
+ * @param {number} to_index - new position
+ * @returns {boolean} True if the move is allowed, otherwise false.
+ */
+Checkers.is_valid_move = function (from_index, to_index) {
+
+};
+
+/**
+ * Moves a piece from one board position to another
+ * 
+ * @memberof Checkers
+ * @param {number} from_index - current position
+ * @param {number} to_index - new position
+ */
+
+Checkers.move_piece = function(from_index, to_index) {
+
+};
+
+/**
+ * Checks whether a move is a capture move.
+ *
+ * @memberof Checkers
+ * @param {number} from_index - current position
+ * @param {number} to_index - new position
+ * @returns {boolean} True if the move captures another piece, otherwise false.
+ */
+Checkers.is_capture_move = function (from_index, to_index) {
+
+};
+
+/**
+ * Gets the piece captured during a capture move.
+ *
+ * @memberof Checkers
+ * @param {number} from_index - starting position
+ * @param {number} to_index - ending position.
+ * @returns {Checkers.Piece_or_empty}  captured piece id, or null if no piece is captured.
+ */
+Checkers.get_captured_piece = function (from_index, to_index) {
+
+};
+
+/**
+ * Removes a captured piece from the board.
+ *
+ * @memberof Checkers
+ * @param {number} captured_index -  board position of the captured piece.
+ */
+Checkers.capture_piece = function (captured_index) {
+
+};
+
+/**
+ * Checks whether a piece should become a king.
+ *
+ * @memberof Checkers
+ * @param {Checkers.Piece} piece - piece id to check
+ * @param {number} index - position of the piece
+ * @returns {boolean} True if the piece should become a king, otherwise false.
+ */
+Checkers.should_be_king = function (piece, index) {
+
+};
+
+/**
+ * Switches the current player.
+ *
+ * @memberof Checkers
+ */
+Checkers.switch_turn = function () {
+
+};
+
+/**
+ * Check if a player has won.
+ * A player wins when the other player has no pieces left
+ * 
+ * @memberof Checkers
+ * @returns {boolean} True if the game has been won, otherwise false
+ */
+Checkers.is_victory = function () {
 
 };
 
