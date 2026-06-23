@@ -15,88 +15,100 @@
         <h1>Checkers</h1> <!--Heading 1 -->
     </header>
 
-    <main class = "game" id="game">
-        <table class = "centre">
-            <tr>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat1"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat2"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat3"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat4"></p></td>
-            </tr>
-            <tr>
-                <td class = "catpiece" id= "cat5"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat6"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat7"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat8"></p></td>
-                <td class = "emptypiece"></td>
-            </tr>
-            <tr>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat9"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat10"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat11"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "catpiece" id= "cat12"></p></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class = "emptypiece"></td>
-                <td></td>
-                <td class = "emptypiece"></td>
-                <td></td>
-                <td class = "emptypiece"></td>
-                <td></td>
-                <td class = "emptypiece"></td>
-            <tr>
-                <td class = "emptypiece"></td>
-                <td></td>
-                <td class = "emptypiece"></td>
-                <td></td>
-                <td class = "emptypiece"></td>
-                <td></td>
-                <td class = "emptypiece"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class = "dogpiece" id= "dog1"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog2"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog3"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog4"></p></td>
-                <td class = "emptypiece"></td>
-            </tr>
-            <tr>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog5"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog6"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog7"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog8"></p></td>
-            </tr>
-            <tr>
-                <td class = "dogpiece" id= "dog9"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog10"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog11"></p></td>
-                <td class = "emptypiece"></td>
-                <td class = "dogpiece" id= "dog12"></p></td>
-                <td class = "emptypiece"></td>
-            </tr>
-        </table>
-    </main>
+    <div class = "game-layout">
+
+        <aside id = "player1" class="player_turn active">
+            <h2>Player 1 - Cats</h2>
+            <div class = "catpiece player_icon"></div>
+        </aside>
+
+        <main class = "game" id="game">
+            <table class = "centre">
+                <tr>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat1"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat2"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat3"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat4"></td>
+                </tr>
+                <tr>
+                    <td class = "catpiece" id= "cat5"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat6"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat7"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat8"></td>
+                    <td class = "emptypiece"></td>
+                </tr>
+                <tr>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat9"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat10"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat11"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "catpiece" id= "cat12"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class = "emptypiece"></td>
+                    <td></td>
+                    <td class = "emptypiece"></td>
+                    <td></td>
+                    <td class = "emptypiece"></td>
+                    <td></td>
+                    <td class = "emptypiece"></td>
+                <tr>
+                    <td class = "emptypiece"></td>
+                    <td></td>
+                    <td class = "emptypiece"></td>
+                    <td></td>
+                    <td class = "emptypiece"></td>
+                    <td></td>
+                    <td class = "emptypiece"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class = "dogpiece" id= "dog1"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog2"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog3"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog4"></td>
+                    <td class = "emptypiece"></td>
+                </tr>
+                <tr>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog5"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog6"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog7"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog8"></td>
+                </tr>
+                <tr>
+                    <td class = "dogpiece" id= "dog9"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog10"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog11"></td>
+                    <td class = "emptypiece"></td>
+                    <td class = "dogpiece" id= "dog12"></td>
+                    <td class = "emptypiece"></td>
+                </tr>
+            </table>
+        </main>
+        <aside id="player2" class="player_turn">
+            <h2>Player 2 - Dogs</h2>
+            <div class="dogpiece player_icon"></div>
+        </aside>
+    </div>
 </body>
 

@@ -12,11 +12,17 @@ h1{
     margin-bottom:2rem;
 }
 
+.game-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
 .game {
     background:#AC8053;
     width: fit-content;
     text-align: center;
-    margin: 0 auto;
     padding: 2rem;
     border-radius: 1rem;
 }
@@ -77,4 +83,25 @@ table {
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.player_turn{
+    width: 200px;
+    padding: 20px;
+    text-align: center;
+    border: 3px solid #333;
+    border-radius: 12px;
+    background-color: #eee;
+}
+
+.player_turn.active{
+    background-color: gold;
+    border-color: orange;
+}
+
+.player_icon {
+  width: 65px;
+  height: 65px;
+  margin: 0 auto;
+  border: 2px solid black;
 }
