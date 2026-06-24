@@ -38,7 +38,7 @@ const update_html_board = function () {
     squares.forEach(function (square, index) {
         const piece = Checkers.board[index];
 
-        square.classList.remove("catpiece", "dogpiece", "selected");
+        square.classList.remove("catpiece", "dogpiece", "king", "selected");
         square.removeAttribute("id");
 
         if (piece === null) {
@@ -53,6 +53,10 @@ const update_html_board = function () {
 
         if (Checkers.get_piece_player(piece) === "dog") {
             square.classList.add("dogpiece");
+        }
+
+        if (Checkers.is_king(piece)) {
+            square.classList.add("king");
         }
     });
 };

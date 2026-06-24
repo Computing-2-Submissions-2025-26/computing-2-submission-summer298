@@ -21,6 +21,7 @@ describe("A checkers board contains pieces and empty squares", function () {
     beforeEach(function () {
         Checkers.board = starting_board.slice();
         Checkers.current_player = "cat";
+        Checkers.kings = [];
     });
 
     it("An empty board contains 64 empty squares", function () {
@@ -52,6 +53,7 @@ describe("Each piece belongs to one of the two players", function () {
     beforeEach(function () {
         Checkers.board = starting_board.slice();
         Checkers.current_player = "cat";
+        Checkers.kings = [];
     });
 
     it("Pieces 0 to 11 belong to cats, and pieces 12 to 23 belong to dogs", function () {
@@ -71,6 +73,8 @@ describe("On your turn, you can only move your own pieces", function () {
 
     beforeEach(function () {
         Checkers.board = Checkers.empty_board();
+        Checkers.current_player = "cat";
+        Checkers.kings = [];
     });
 
     it("A player can move their own piece", function () {
@@ -89,10 +93,12 @@ describe("On your turn, you can only move your own pieces", function () {
 
 });
 
-describe("A normal move goes one square diagonally forwards into an empty square", function () {
+describe("A normal piece moves one square diagonally forwards into an empty square", function () {
 
     beforeEach(function () {
         Checkers.board = Checkers.empty_board();
+        Checkers.current_player = "cat";
+        Checkers.kings = [];
     });
 
     it("A cat can move one square diagonally forwards", function () {
@@ -109,7 +115,7 @@ describe("A normal move goes one square diagonally forwards into an empty square
         assert.strictEqual(Checkers.is_valid_move(40, 33), true);
     });
 
-    it("A piece cannot move sideways, backwards, or onto an occupied square", function () {
+    it("A non-king piece cannot move sideways, backwards, or onto an occupied square", function () {
         Checkers.board[24] = "0";
         Checkers.current_player = "cat";
 
@@ -126,6 +132,8 @@ describe("A capture move jumps over an opponent's piece into an empty square", f
 
     beforeEach(function () {
         Checkers.board = Checkers.empty_board();
+        Checkers.current_player = "cat";
+        Checkers.kings = [];
     });
 
     it("A piece can capture an opponent by jumping over it", function () {
@@ -159,12 +167,116 @@ describe("A capture move jumps over an opponent's piece into an empty square", f
         assert.strictEqual(Checkers.is_capture_move(17, 35), false);
     });
 
+    it("A non-king piece cannot capture backwards", function () {
+        Checkers.board[35] = "0";
+        Checkers.board[26] = "12";
+        Checkers.current_player = "cat";
+
+        assert.strictEqual(Checkers.is_capture_move(35, 17), false);
+    });
+
+});
+
+describe("A piece becomes a king when it reaches the opposite side", function () {
+
+    beforeEach(function () {
+        Checkers.board = Checkers.empty_board();
+        Checkers.current_player = "cat";
+        Checkers.kings = [];
+    });
+
+    it("A cat becomes a king when it reaches the bottom row", function () {
+        Checkers.board[49] = "0";
+        Checkers.current_player = "cat";
+
+        const moved = Checkers.move_piece(49, 56);
+
+        assert.strictEqual(moved, true);
+        assert.strictEqual(Checkers.is_king("0"), true);
+    });
+
+    it("A dog becomes a king when it reaches the top row", function () {
+        Checkers.board[14] = "12";
+        Checkers.current_player = "dog";
+
+        const moved = Checkers.move_piece(14, 7);
+
+        assert.strictEqual(moved, true);
+        assert.strictEqual(Checkers.is_king("12"), true);
+    });
+
+    it("A piece is not a king before reaching the opposite side", function () {
+        Checkers.board[17] = "0";
+        Checkers.current_player = "cat";
+
+        const moved = Checkers.move_piece(17, 24);
+
+        assert.strictEqual(moved, true);
+        assert.strictEqual(Checkers.is_king("0"), false);
+    });
+
+});
+
+describe("A king can move and capture diagonally forwards or backwards", function () {
+
+    beforeEach(function () {
+        Checkers.board = Checkers.empty_board();
+        Checkers.current_player = "cat";
+        Checkers.kings = [];
+    });
+
+    it("A cat king can move diagonally backwards", function () {
+        Checkers.board[24] = "0";
+        Checkers.kings = ["0"];
+        Checkers.current_player = "cat";
+
+        assert.strictEqual(Checkers.is_valid_move(24, 17), true);
+    });
+
+    it("A dog king can move diagonally backwards", function () {
+        Checkers.board[33] = "12";
+        Checkers.kings = ["12"];
+        Checkers.current_player = "dog";
+
+        assert.strictEqual(Checkers.is_valid_move(33, 42), true);
+    });
+
+    it("A cat king can capture backwards", function () {
+        Checkers.board[35] = "0";
+        Checkers.board[26] = "12";
+        Checkers.kings = ["0"];
+        Checkers.current_player = "cat";
+
+        const moved = Checkers.move_piece(35, 17);
+
+        assert.strictEqual(moved, true);
+        assert.strictEqual(Checkers.board[17], "0");
+        assert.strictEqual(Checkers.board[35], null);
+        assert.strictEqual(Checkers.board[26], null);
+    });
+
+    it("A dog king can capture backwards", function () {
+        Checkers.board[28] = "12";
+        Checkers.board[37] = "0";
+        Checkers.kings = ["12"];
+        Checkers.current_player = "dog";
+
+        const moved = Checkers.move_piece(28, 46);
+
+        assert.strictEqual(moved, true);
+        assert.strictEqual(Checkers.board[46], "12");
+        assert.strictEqual(Checkers.board[28], null);
+        assert.strictEqual(Checkers.board[37], null);
+    });
+
 });
 
 describe("When a move is made, the board updates", function () {
 
     beforeEach(function () {
         Checkers.board = Checkers.empty_board();
+        Checkers.current_player = "cat";
+        Checkers.kings = [];
     });
 
     it("A valid move places the piece in the new square and empties the old square", function () {
@@ -197,6 +309,8 @@ describe("The game ends when one player has no pieces left", function () {
 
     beforeEach(function () {
         Checkers.board = Checkers.empty_board();
+        Checkers.current_player = "cat";
+        Checkers.kings = [];
     });
 
     it("The game is not won while both players still have pieces", function () {
