@@ -17,16 +17,8 @@ const result_text = {
     dog: "The canine family have won"
 };
 
-const player_types = {
-    "1": "cats",
-    "2": "dogs"
-};
-
 // letting js know each square of the board
 const squares = document.querySelectorAll("#game td");
-
-console.log("main.js loaded")
-console.log("Number of squares found", squares.length);
 
 const clear_selected_square = function () {
     squares.forEach(function (square) {
@@ -34,6 +26,7 @@ const clear_selected_square = function () {
     });
 };
 
+// updating html board
 const update_html_board = function () {
     squares.forEach(function (square, index) {
         const piece = Checkers.board[index];
@@ -61,6 +54,7 @@ const update_html_board = function () {
     });
 };
 
+//update html telling you who's turn it is
 const update_turn_display = function () {
     const player1 = document.getElementById("player1");
     const player2 = document.getElementById("player2");
@@ -73,14 +67,13 @@ const update_turn_display = function () {
         player1.classList.remove("active");
     }
 };
-
-
 const show_result = function () {
     const result = document.getElementById("result");
 
     result.textContent = result_text[Checkers.current_player];
 };
 
+//all clicking interactions
 const handle_square_click = function (event) {
     const clicked_square = event.target;
     const clicked_index = Array.from(squares).indexOf(clicked_square);
@@ -105,7 +98,6 @@ const handle_square_click = function (event) {
         return;
     }
 
-    
     const move_worked = Checkers.move_piece(selected_index, clicked_index);
 
     clear_selected_square();

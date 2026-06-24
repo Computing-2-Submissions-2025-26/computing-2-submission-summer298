@@ -175,7 +175,7 @@ Checkers.is_valid_move = function (from_index, to_index) {
  * @memberof Checkers
  * @param {number} from_index - current position
  * @param {number} to_index - new position
- * @returns {boolean} 
+ * @returns {boolean}
  */
 
 Checkers.move_piece = function (from_index, to_index) {
@@ -286,7 +286,7 @@ Checkers.is_capture_move = function (from_index, to_index) {
 };
 
 /**
- * Gets the piece captured during a capture move 
+ * Gets the piece captured during a capture move
  * @memberof Checkers
  * @param {number} from_index - starting position
  * @param {number} to_index - ending position.
