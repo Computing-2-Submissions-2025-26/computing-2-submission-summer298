@@ -1,6 +1,6 @@
 body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #d0f046;
+    background-image: url("assets/grass.png");
     text-align: center;
     margin: 0;
     padding: 2rem; 
@@ -12,11 +12,35 @@ h1{
     margin-bottom:2rem;
 }
 
+h2{
+    font-size:1.5rem;
+}
+
+.title {
+    background-color: white;
+    color: purple;
+    font-size: 3rem;
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.heading2{
+    background-color: white;
+    color: purple;
+    font-size: 2rem;
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 20px;
+    text-align: center;
+}
+
 .game-layout {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 }
 
 .game {
@@ -28,7 +52,7 @@ h1{
 }
 
 td {
-    background-color: green;
+    background-color: purple;
     width: 65px;
     height: 65px;
     text-align: center;
@@ -42,9 +66,9 @@ td {
 
 
 .centre {
-     margin: 0 auto;
-     justify-content: center;
-     align-items: center;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
 }
 
 table {
@@ -54,7 +78,7 @@ table {
 }
 
 .catpiece{
-    background-color: green;
+    background-color: purple;
     background-image: url("assets/cat.png");
     background-size: 80%;
     background-repeat: no-repeat;
@@ -62,7 +86,7 @@ table {
 }
 
 .dogpiece{
-    background-color: green;
+    background-color: purple;
     background-image: url("assets/dog.png");
     background-size: 80%;
     background-repeat: no-repeat;
@@ -87,23 +111,24 @@ table {
 
 .player_turn{
     width: 200px;
+    height: 200px;
     padding: 20px;
     text-align: center;
-    border: 3px solid #333;
+    border: 10px solid #AC8053;
     border-radius: 12px;
     background-color: #eee;
 }
 
 .player_turn.active{
     background-color: gold;
-    border-color: orange;
+    border: 10px solid orange;
 }
 
 .player_icon {
-  width: 65px;
-  height: 65px;
-  margin: 0 auto;
-  border: 2px solid black;
+    width: 65px;
+    height: 65px;
+    margin: 0 auto;
+    border: 2px solid black;
 }
 
 .selected {
@@ -111,7 +136,17 @@ table {
 }
 
 #result {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-top: 1rem;
+    background-color: white;
+    color: green;
+    padding: 0.75rem;
+    border-radius: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+#result:empty {
+    display:none;
 }

@@ -11,10 +11,9 @@ import Checkers from "./Checkers.js";
 let selected_index = null;
 
 // String literals.
-
 const result_text = {
-    cat: "The feline family have won",
-    dog: "The canine family have won"
+    cat: "Team Cats have prevailed!",
+    dog: "Team Dogs have met success!"
 };
 
 // letting js know each square of the board
@@ -104,6 +103,7 @@ const handle_square_click = function (event) {
 
     if (move_worked) {
         update_html_board();
+        update_piece_counter();
 
         if (Checkers.is_victory()) {
             show_result();
@@ -122,5 +122,16 @@ squares.forEach(function (square) {
     square.onclick = handle_square_click;
 });
 
+// piece counter per player
+const update_piece_counter = function () {
+    const cat_count = document.getElementById("cat_count");
+    const dog_count = document.getElementById("dog_count");
+
+    cat_count.textContent = Checkers.count_pieces("cat");
+    dog_count.textContent = Checkers.count_pieces("dog");
+};
+
 update_html_board();
 update_turn_display();
+update_piece_counter();
+

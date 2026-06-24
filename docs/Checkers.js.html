@@ -1,4 +1,51 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Checkers.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Checkers.html">Checkers</a><ul class='members'><li data-type='member'><a href="Checkers.html#.board">board</a></li><li data-type='member'><a href="Checkers.html#.current_player">current_player</a></li><li data-type='member'><a href="Checkers.html#.kings">kings</a></li></ul><ul class='methods'><li data-type='method'><a href="Checkers.html#.capture_piece">capture_piece</a></li><li data-type='method'><a href="Checkers.html#.count_pieces">count_pieces</a></li><li data-type='method'><a href="Checkers.html#.empty_board">empty_board</a></li><li data-type='method'><a href="Checkers.html#.get_captured_piece">get_captured_piece</a></li><li data-type='method'><a href="Checkers.html#.get_piece_player">get_piece_player</a></li><li data-type='method'><a href="Checkers.html#.get_piece_position">get_piece_position</a></li><li data-type='method'><a href="Checkers.html#.is_capture_move">is_capture_move</a></li><li data-type='method'><a href="Checkers.html#.is_empty_position">is_empty_position</a></li><li data-type='method'><a href="Checkers.html#.is_king">is_king</a></li><li data-type='method'><a href="Checkers.html#.is_valid_move">is_valid_move</a></li><li data-type='method'><a href="Checkers.html#.is_victory">is_victory</a></li><li data-type='method'><a href="Checkers.html#.make_king">make_king</a></li><li data-type='method'><a href="Checkers.html#.move_piece">move_piece</a></li><li data-type='method'><a href="Checkers.html#.should_be_king">should_be_king</a></li><li data-type='method'><a href="Checkers.html#.switch_turn">switch_turn</a></li></ul></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Checkers.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Checkers.js is a module to model and play Checkers
  * @namespace Checkers
  * @author Hanan
@@ -65,10 +112,10 @@ Checkers.get_piece_player = function (piece) {
     return null;
   }
   const piece_number = Number(piece);
-  if (piece_number >= 0 && piece_number <=11) {
+  if (piece_number >= 0 &amp;&amp; piece_number &lt;=11) {
     return "cat";
   }
-  if (piece_number >= 12 && piece_number <= 23) {
+  if (piece_number >= 12 &amp;&amp; piece_number &lt;= 23) {
     return "dog";
   }
   return null;
@@ -118,7 +165,7 @@ Checkers.kings = [];
  * @returns {boolean} True if the move is allowed, otherwise false.
  */
 Checkers.is_valid_move = function (from_index, to_index) {
-  if (from_index < 0 || from_index > 63 || to_index < 0 || to_index > 63) {
+  if (from_index &lt; 0 || from_index > 63 || to_index &lt; 0 || to_index > 63) {
     return false;
   }
 
@@ -148,15 +195,15 @@ Checkers.is_valid_move = function (from_index, to_index) {
   const col_difference = Math.abs(to_col - from_col);
 
   if (col_difference === 1) {
-    if (Checkers.is_king(piece) && Math.abs(row_difference) === 1) {
+    if (Checkers.is_king(piece) &amp;&amp; Math.abs(row_difference) === 1) {
       return true;
     }
 
-    if (player === "cat" && row_difference === 1) {
+    if (player === "cat" &amp;&amp; row_difference === 1) {
       return true;
     }
 
-    if (player === "dog" && row_difference === -1) {
+    if (player === "dog" &amp;&amp; row_difference === -1) {
       return true;
     }
   }
@@ -259,10 +306,10 @@ Checkers.is_capture_move = function (from_index, to_index) {
       return false;
     }
   } else {
-    if (player === "cat" && row_difference !==2) {
+    if (player === "cat" &amp;&amp; row_difference !==2) {
       return false;
     }
-    if (player === "dog" && row_difference !== -2) {
+    if (player === "dog" &amp;&amp; row_difference !== -2) {
       return false;
     }
   }
@@ -340,10 +387,10 @@ Checkers.should_be_king = function (piece, index) {
   const player = Checkers.get_piece_player(piece);
   const row = Math.floor(index/8);
 
-  if (player === "cat" && row === 7){
+  if (player === "cat" &amp;&amp; row === 7){
     return true;
   }
-  if (player === "dog" && row === 0){
+  if (player === "dog" &amp;&amp; row === 0){
     return true;
   }
   return false;
@@ -394,4 +441,30 @@ Checkers.is_victory = function () {
 
 //export default Object.freeze(Checkers); commented out as broke unit tests
 
-export default Checkers;
+export default Checkers;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Jun 24 2026 23:18:02 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+    <link type="text/css" rel="stylesheet" href="custom.css">
+    
+</body>
+</html>
