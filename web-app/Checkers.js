@@ -1,5 +1,3 @@
-import R from "./ramda.js";
-
 /**
  * Checkers.js is a module to model and play Checkers
  * @namespace Checkers
@@ -61,8 +59,7 @@ Checkers.board = [
  */
 
 Checkers.empty_board = function () {
-  return R.repeat(null, 64);
-
+  return Array(64).fill(null); //replaced R as could not be imported in
 };
 
 /**
