@@ -1,34 +1,33 @@
 /**
  * Checkers.js is a module to model and play Checkers
  * @namespace Checkers
- * @author Hanan
+ * @author Hanan Kara
  */
 
 const Checkers = Object.create(null);
 
 /**
- * A piece is represented by its HTML id.
- * Eg "0", "1", "12", "23".
+ * A piece is represented by its HTML id
  * @memberof Checkers
  * @typedef {string} Piece
  */
 
 /**
- * A board square contains either a piece id or null.
+ * A board square contains either a piece id or null
  * null = empty square
  * string = piece id
  * @memberof Checkers
- * @typedef {(Piece | null)} Piece_or_empty
+ * @typedef {(Checkers.Piece | null)} Piece_or_empty
  */
 
 /**
- * A Board is a single array of 64 positions.
+ * A board is a single array of 64 positions
  * @memberof Checkers
- * @typedef {Piece_or_empty[]} Board
+ * @typedef {Checkers.Piece_or_empty[]} Board
  */
 
 /**
- * The current state of the board.
+ * Current board state
  * @memberof Checkers
  * @type {Checkers.Board}
  */
@@ -45,20 +44,20 @@ Checkers.board = [
 ];
 
 /**
- * Creates an empty board.
+ * Creates an empty board
  * @memberof Checkers
  * @returns {Checkers.Board} - empty board with 64 null values
  */
 
 Checkers.empty_board = function () {
-  return new Array(64).fill(null); //replaced R as could not be imported in
+  return new Array(64).fill(null);
 };
 
 /**
  * Determines which player a piece belongs to
  * @memberof Checkers
  * @param {Checkers.Piece_or_empty} piece - the piece id or null
- * @returns {"cat" | "dog" | null} Player who owns the piece or null if empty
+ * @returns {"cat" | "dog" | null} - player who owns the piece or null if empty
  */
 Checkers.get_piece_player = function (piece) {
   if (piece === null) {
@@ -85,17 +84,17 @@ Checkers.current_player = "cat";
  * Finds the board index of a piece
  * @memberof Checkers
  * @param {Checkers.Piece} piece - the piece id to search for
- * @returns {number} The board index of the piece, or -1 if it is not found
+ * @returns {number} - board index of the piece, or -1 if it is not found
  */
 Checkers.get_piece_position = function (piece) {
   return Checkers.board.indexOf(piece);
 };
 
 /**
- * Checks whether a board position is empty.
+ * Checks whether a board position is empty
  * @memberof Checkers
- * @param {number} index - the board position to check.
- * @returns {boolean} True if the position is empty, otherwise false.
+ * @param {number} index - the board position to check
+ * @returns {boolean} - true if the position is empty, otherwise false
  */
 Checkers.is_empty_position = function(index) {
   return Checkers.board[index] === null;
@@ -109,13 +108,14 @@ Checkers.is_empty_position = function(index) {
 Checkers.kings = [];
 
 /**
- * Checks whether a move is valid.
- * Checks one square diagonally forwards movement
- * handles captures and kings
+ * Checks whether a move is valid
+ * Normal move: one square diagonally forwards
+ * King move: one square diagonally forwards or backwards
+ * Handles captures
  * @memberof Checkers
  * @param {number} from_index - current position
  * @param {number} to_index - new position
- * @returns {boolean} True if the move is allowed, otherwise false.
+ * @returns {boolean} - true if the move is allowed, otherwise false
  */
 Checkers.is_valid_move = function (from_index, to_index) {
   if (from_index < 0 || from_index > 63 || to_index < 0 || to_index > 63) {
@@ -170,10 +170,12 @@ Checkers.is_valid_move = function (from_index, to_index) {
 
 /**
  * Moves a piece from one board position to another
+ * Removes captured piece if capture
+ * Makes king if piece reaches opposite end
  * @memberof Checkers
  * @param {number} from_index - current position
  * @param {number} to_index - new position
- * @returns {boolean}
+ * @returns {boolean} - true if valid move and piece moved, otherwise false
  */
 Checkers.move_piece = function (from_index, to_index) {
   if (!Checkers.is_valid_move(from_index, to_index)) {
@@ -188,17 +190,17 @@ Checkers.move_piece = function (from_index, to_index) {
   Checkers.board[from_index] = null;
 
   if (was_capture) {
-      const from_row = Math.floor(from_index / 8);
-      const from_col = from_index % 8;
+    const from_row = Math.floor(from_index / 8);
+    const from_col = from_index % 8;
 
-      const to_row = Math.floor(to_index / 8);
-      const to_col = to_index % 8;
+    const to_row = Math.floor(to_index / 8);
+    const to_col = to_index % 8;
 
-      const captured_row = (from_row + to_row) / 2;
-      const captured_col = (from_col + to_col) / 2;
-      const captured_index = captured_row * 8 + captured_col;
+    const captured_row = (from_row + to_row) / 2;
+    const captured_col = (from_col + to_col) / 2;
+    const captured_index = captured_row * 8 + captured_col;
 
-      Checkers.capture_piece(captured_index);
+    Checkers.capture_piece(captured_index);
   }
 
   if (Checkers.should_be_king(piece, to_index)) {
@@ -211,8 +213,8 @@ Checkers.move_piece = function (from_index, to_index) {
 /**
  * Checks whether a piece is a king
  * @memberof Checkers
- * @param {Checkers.Piece_or_empty} piece - Piece id or null
- * @returns {boolean} True if piece is king, otherwise false
+ * @param {Checkers.Piece_or_empty} piece - piece id or null
+ * @returns {boolean} - true if piece is king, otherwise false
  */
 Checkers.is_king = function (piece) {
   if(piece === null) {
@@ -222,11 +224,11 @@ Checkers.is_king = function (piece) {
 };
 
 /**
- * Checks whether a move is a capture move.
+ * Checks whether a move is a capture move
  * @memberof Checkers
  * @param {number} from_index - current position
  * @param {number} to_index - new position
- * @returns {boolean} True if the move captures another piece, otherwise false.
+ * @returns {boolean} - true if the move captures another piece, otherwise false
  */
 Checkers.is_capture_move = function (from_index, to_index) {
   const piece = Checkers.board[from_index];
@@ -286,14 +288,13 @@ Checkers.is_capture_move = function (from_index, to_index) {
  * Gets the piece captured during a capture move
  * @memberof Checkers
  * @param {number} from_index - starting position
- * @param {number} to_index - ending position.
- * @returns {Checkers.Piece_or_empty} captured piece id or null if none captured
+ * @param {number} to_index - ending position
+ * @returns {Checkers.Piece_or_empty} - captured piece id or null if none
  */
 Checkers.get_captured_piece = function (from_index, to_index) {
   if (!Checkers.is_capture_move(from_index, to_index)) {
       return null;
   }
-
   const from_row = Math.floor(from_index / 8);
   const from_col = from_index % 8;
 
@@ -309,19 +310,20 @@ Checkers.get_captured_piece = function (from_index, to_index) {
 };
 
 /**
- * Removes a captured piece from the board.
+ * Removes captured piece from the board
  * @memberof Checkers
- * @param {number} captured_index -  board position of the captured piece.
+ * @param {number} captured_index - board position of the captured piece
+ * @returns {undefined} - no returned value
  */
 Checkers.capture_piece = function (captured_index) {
     Checkers.board[captured_index] = null;
 };
 
 /**
- * Counts how many pieces a player has left on the board.
+ * Counts how many pieces a player has left on the board
  * @memberof Checkers
- * @param {"cat" | "dog"} player - The player to count pieces for.
- * @returns {number} Number of pieces the player has left.
+ * @param {"cat" | "dog"} player - player to count pieces for
+ * @returns {number} - number of pieces the player has left
  */
 Checkers.count_pieces = function (player) {
   return Checkers.board.filter(function (piece) {
@@ -330,11 +332,11 @@ Checkers.count_pieces = function (player) {
 };
 
 /**
- * Checks whether a piece should become a king.
+ * Checks whether a piece should become a king
  * @memberof Checkers
  * @param {Checkers.Piece} piece - piece id to check
  * @param {number} index - position of the piece
- * @returns {boolean} True if the piece should become a king, otherwise false.
+ * @returns {boolean} - true if the piece should become a king, otherwise false
  */
 Checkers.should_be_king = function (piece, index) {
   const player = Checkers.get_piece_player(piece);
@@ -353,6 +355,7 @@ Checkers.should_be_king = function (piece, index) {
  * Makes a piece into a king
  * @memberof Checkers
  * @param {Checkers.Piece} piece - piece id to make king
+ * @returns {undefined} - no returned value
  */
 Checkers.make_king = function (piece) {
   if (!Checkers.kings.includes(piece)){
@@ -361,8 +364,9 @@ Checkers.make_king = function (piece) {
 };
 
 /**
- * Switches the current player.
+ * Switches the current player
  * @memberof Checkers
+ * @returns {"cat" | "dog"} - player whose turn it is after switch
  */
 Checkers.switch_turn = function () {
   if (Checkers.current_player === "cat") {
@@ -375,10 +379,10 @@ Checkers.switch_turn = function () {
 };
 
 /**
- * Check if a player has won.
- * A player wins when the other player has no pieces left
+ * Check if a player has won
+ * A player wins when the other has no pieces left
  * @memberof Checkers
- * @returns {boolean} True if the game has been won, otherwise false
+ * @returns {boolean} - true if the game has been won, otherwise false
  */
 Checkers.is_victory = function () {
   const cats_left = Checkers.board.some(function (piece) {

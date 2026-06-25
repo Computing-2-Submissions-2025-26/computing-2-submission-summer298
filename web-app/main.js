@@ -1,16 +1,8 @@
 import Checkers from "./Checkers.js";
 
-// click first square = choose a piece
-// click second square = choose where to move
-// call checkers.move_piece(from_index, to_index)
-// if move worked, update HTML board
-// check victory
-// switch turn
-// update player panel colour
-
 let selected_index = null;
 
-// String literals.
+// Result strings
 const result_text = {
     cat: "Team Cats have prevailed!",
     dog: "Team Dogs have met success!"
